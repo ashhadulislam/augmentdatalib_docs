@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
     <title>Welcome to augmentdata’s documentation! &#8212; augmentdata  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -57,7 +57,7 @@
 <p>Convert your dataset to numpy array</p>
 <p>All values of the data must be numeric</p>
 <p>The last column must be the class label</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">augmentdata</span> <span class="kn">import</span> <span class="n">data_augment</span>
 <span class="n">l</span><span class="o">=</span><span class="p">[</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
@@ -76,8 +76,10 @@
 <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
 <span class="n">randmx</span><span class="o">=</span><span class="mi">1</span>
 <span class="n">daug</span> <span class="o">=</span> <span class="n">data_augment</span><span class="o">.</span><span class="n">DataAugment</span><span class="p">()</span>
-<span class="p">[</span><span class="n">Data_a</span><span class="p">,</span><span class="n">Ext_d</span><span class="p">,</span><span class="n">Ext_not</span><span class="p">]</span><span class="o">=</span><span class="n">daug</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">l</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span><span class="n">class_ind</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">randmx</span><span class="o">=</span><span class="n">randmx</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Data_a</span><span class="p">)</span>
+<span class="p">[</span><span class="n">Data_a</span><span class="p">,</span><span class="n">Ext_d</span><span class="p">,</span><span class="n">Ext_not</span><span class="p">]</span><span class="o">=</span><span class="n">daug</span><span class="o">.</span><span class="n">augment</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">l</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span><span class="n">class_ind</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+               <span class="n">N</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">randmx</span><span class="o">=</span><span class="n">randmx</span><span class="p">,</span><span class="n">dist_percent</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">Data_a</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Data_a contains the augmented data</p>
@@ -106,6 +108,7 @@
 <li><p>class_ind is the value of data that needs to be augmented. For example, if the class labels are 0 or 1 and the datapoints for 0 need to be upsampled, class_ind=0</p></li>
 <li><p>N is the number of Datapoints that needs to be added</p></li>
 <li><p>randmx will be a value between 0 and 1, inclusive. smaller the randmx, closer is the data to each original data. randmx, uniform[0,randmx], ; randmx&lt;=1</p></li>
+<li><p>dist_percent is the threshold distance bwtween a point and its kth nearest neighbor to decide whether the point will be used for the generation of the synthetic point.</p></li>
 </ul>
 </div>
 <div class="section" id="outputs">
@@ -120,6 +123,10 @@
 <h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
 <p>If you are having issues, please let us know at
 <a class="reference external" href="mailto:samir&#46;brahim&#37;&#52;&#48;gmail&#46;com">samir<span>&#46;</span>brahim<span>&#64;</span>gmail<span>&#46;</span>com</a> or <a class="reference external" href="mailto:ashhadulislam&#37;&#52;&#48;gmail&#46;com">ashhadulislam<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+</div>
+<div class="section" id="id1">
+<h2>Support<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>If you are using this library in your research please cite the project.</p>
 </div>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
@@ -161,7 +168,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script type="text/javascript">$('#searchbox').show(0);</script>
 
 
 
@@ -178,7 +185,7 @@
       &copy;2020, sbelhaouari, aislam.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

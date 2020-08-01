@@ -60,8 +60,10 @@ The last column must be the class label
 
    k=2
    randmx=1
-   daug = data_augment.DataAugment()
-   [Data_a,Ext_d,Ext_not]=daug.augment(data=l,k=k,class_ind=0,N=5,randmx=randmx)
+   daug = data_augment.DataAugment()   
+   [Data_a,Ext_d,Ext_not]=daug.augment(data=l,k=k,class_ind=0,
+                  N=5,randmx=randmx,dist_percent=0.6)
+
    print(Data_a)
 
 Data_a contains the augmented data
@@ -87,11 +89,12 @@ Data_a contains the augmented data
 Input Parameters
 ----------------
 
-- data is the array like input of data, last column of data is class label	
+- data is the array like input of data, last column of data is class label
 - k is number of neighbors, it should be bigger or equal to 1
 - class_ind is the value of data that needs to be augmented. For example, if the class labels are 0 or 1 and the datapoints for 0 need to be upsampled, class_ind=0
 - N is the number of Datapoints that needs to be added
 - randmx will be a value between 0 and 1, inclusive. smaller the randmx, closer is the data to each original data. randmx, uniform[0,randmx], ; randmx<=1
+- dist_percent is the threshold distance bwtween a point and its kth nearest neighbor to decide whether the point will be used for the generation of the synthetic point.
 
 
 
@@ -115,6 +118,10 @@ Support
 
 If you are having issues, please let us know at
 samir.brahim@gmail.com or ashhadulislam@gmail.com
+
+Support
+-------
+If you are using this library in your research please cite the project.
 
 License
 -------
