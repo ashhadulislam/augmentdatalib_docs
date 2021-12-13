@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to augmentdata's documentation!
+Welcome to the documentation of KNNOR - a novel data augmentation technique!
 =======================================
 
 .. toctree::
@@ -12,7 +12,7 @@ Welcome to augmentdata's documentation!
 
 
 
-augmentdata
+KNNOR
 ===========
 
 Generic python library to perform augmentation of data
@@ -204,3 +204,14 @@ License
 -------
 
 The project is licensed under the MIT license.
+
+Code
+-------
+
+The code can be found in github: 
+
+https://github.com/ashhadulislam/augmentdatalib_source
+
+More examples can be found at 
+
+https://github.com/ashhadulislam/augmentdatalib_source/blob/master/example/Example.ipynb
