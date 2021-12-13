@@ -28,8 +28,8 @@ Features
 Installation
 ------------
 
-Install augmentdata by running::
-   pip install augmentdata
+Install knnor by running::
+   pip install knnor
 
 Using the Library
 -----------------
@@ -38,74 +38,139 @@ Convert your dataset to numpy array
 
 All values of the data must be numeric
 
-The last column must be the class label
+Separate the data into X and y
+
+X being the feataures and y being the class labels
+
+
 
 .. code-block:: python
 
-   import numpy as np
-   from augmentdata import data_augment
-   l=[
-   [1,3,4,1],
-   [2,3,4,1],
-   [1,2,1,0],
-   [3,2,1,0],
-   [3,1,1,0],
-   [2,1,1,0],
-   [3,2,2,1],
-   [3,4,2,1],
-   [4,3,1,1]
-   ]
+  import numpy as np
+  from knnor import data_augment
+  l=[
 
-   l=np.array(l)
+    [1.0,2.0,1.0,0],
+    [1,3,1,0],
+    [2,1,1,0],
+    [3,2,1,0],
+    [3,1,1,0],
 
-   k=2
-   randmx=1
-   daug = data_augment.DataAugment()   
-   [Data_a,Ext_d,Ext_not]=daug.augment(data=l,k=k,class_ind=0,
-                  N=5,randmx=randmx,dist_percent=0.6)
+    [1,3,4,1],
+    [1,4,3,1],
+    [1,4,4,1],
 
-   print(Data_a)
+    [2,3,3,1],
+    [2,3,4,1],
+    [2,4,3,1],
+    [2,4,4,1],
 
-Data_a contains the augmented data
+    [3,2,2,1],
+    [3,3,2,1],
+    [3,3,2,1],
+    [3,4,2,1],
+
+    [4,3,1,1]
+  ]
+
+  l=np.array(l)
+  print("Original Data:")
+  print(l)
+  X=l[:,:-1]
+  y=l[:,-1]
+
+  knnor = data_augment.KNNOR()
+  knnor=KNNOR()
+  X_new,y_new=knnor.fit_resample(X,y)
+  y_new=y_new.reshape(-1,1)
+
+  print("KNNOR Data:")
+  new_data=np.append(X_new, y_new, axis=1)
+  print(new_data)
+
+
+   
+
+new_data contains the augmented data
 
 .. code-block:: python
 
-   array([[1.        , 2.        , 1.        , 0.        ],
-       [3.        , 2.        , 1.        , 0.        ],
-       [3.        , 1.        , 1.        , 0.        ],
-       [2.        , 1.        , 1.        , 0.        ],
-       [1.29027148, 1.98510073, 1.        , 0.        ],
-       [1.65549291, 1.4418645 , 1.        , 0.        ],
-       [2.02559196, 1.01965248, 1.        , 0.        ],
-       [2.79469135, 1.69371064, 1.        , 0.        ],
-       [2.907707  , 1.38716444, 1.        , 0.        ],
-       [1.        , 3.        , 4.        , 1.        ],
-       [2.        , 3.        , 4.        , 1.        ],
-       [3.        , 2.        , 2.        , 1.        ],
-       [3.        , 4.        , 2.        , 1.        ],
-       [4.        , 3.        , 1.        , 1.        ]])
+  Original Data:
+  [[1. 2. 1. 0.]
+   [1. 3. 1. 0.]
+   [2. 1. 1. 0.]
+   [3. 2. 1. 0.]
+   [3. 1. 1. 0.]
+   [1. 3. 4. 1.]
+   [1. 4. 3. 1.]
+   [1. 4. 4. 1.]
+   [2. 3. 3. 1.]
+   [2. 3. 4. 1.]
+   [2. 4. 3. 1.]
+   [2. 4. 4. 1.]
+   [3. 2. 2. 1.]
+   [3. 3. 2. 1.]
+   [3. 3. 2. 1.]
+   [3. 4. 2. 1.]
+   [4. 3. 1. 1.]]
+
+  KNNOR Data:
+  [[1.         2.         1.         0.        ]
+   [1.         3.         1.         0.        ]
+   [2.         1.         1.         0.        ]
+   [3.         2.         1.         0.        ]
+   [3.         1.         1.         0.        ]
+   [1.         3.         4.         1.        ]
+   [1.         4.         3.         1.        ]
+   [1.         4.         4.         1.        ]
+   [2.         3.         3.         1.        ]
+   [2.         3.         4.         1.        ]
+   [2.         4.         3.         1.        ]
+   [2.         4.         4.         1.        ]
+   [3.         2.         2.         1.        ]
+   [3.         3.         2.         1.        ]
+   [3.         3.         2.         1.        ]
+   [3.         4.         2.         1.        ]
+   [4.         3.         1.         1.        ]
+   [1.         2.8596414  1.         0.        ]
+   [3.         1.89795961 1.         0.        ]
+   [2.76031358 1.         1.         0.        ]
+   [1.         2.95194388 1.         0.        ]
+   [3.         1.72737314 1.         0.        ]
+   [2.712059   1.         1.         0.        ]
+   [1.         2.94970565 1.         0.        ]]
 
 
 Input Parameters
 ----------------
 
-- data is the array like input of data, last column of data is class label
-- k is number of neighbors, it should be bigger or equal to 1
-- class_ind is the value of data that needs to be augmented. For example, if the class labels are 0 or 1 and the datapoints for 0 need to be upsampled, class_ind=0
-- N is the number of Datapoints that needs to be added
-- randmx will be a value between 0 and 1, inclusive. smaller the randmx, closer is the data to each original data. randmx, uniform[0,randmx], ; randmx<=1
-- dist_percent is the threshold distance bwtween a point and its kth nearest neighbor to decide whether the point will be used for the generation of the synthetic point.
+Above example leverages the default parameters of the KNNOR algorithm. Following parameters can be used to tweak the functioning of the algorithm
+
+.. code-block:: python
+  X_new,y_new=knnor.fit_resample(X,y,
+                              num_neighbors=10, # the number of neighbors that will be used for generation of each artificial point
+                              max_dist_point=0.01, # the maximum distance at which the new point will be placed
+                              proportion_minority=0.3, # proportion of the minority population that will be used to generate the artificial point
+                              final_proportion=2 # final number of minority datapoints
+                               # example, if num majority =15 and num minority =5, 
+  #           putting final_proportion as 1 will add 10 artificial minority points
+                              )
+
+
+- num_neighbors is the number of neighbors that will be used for generation of each artificial point
+- max_dist_point is the maximum distance at which the new point will be placed, 1 being highest
+- proportion_minority is the proportion of the minority population that will be used to generate the artificial point
+- final_proportion decides the number of minority datapoints to be augmented. For example, if the number of majority datapoints is 15 and the number of minority datapoints is 5, then final_proportion=1 implies that 10 artificial minority points will be added so that the ratio of minority over majority count is 1.
 
 
 
 
 Outputs
 -------
-- Data_a: complete data with augmented datapoints
+- X: complete data with augmented datapoints
 
-- Ext_d: Only the augmented data points
+- y: Labels including the augmented ones
 
-- Ext_not: The datapoints that was created but ignored
 
 .. Contribute
 .. ----------
@@ -117,11 +182,23 @@ Support
 -------
 
 If you are having issues, please let us know at
-samir.brahim@gmail.com or ashhadulislam@gmail.com
+ashhadulislam@gmail.com or samir.brahim@gmail.com
 
-Support
+Cite
 -------
-If you are using this library in your research please cite the project.
+If you are using this library in your research please cite the following.
+
+Ashhadul Islam, Samir Brahim Belhaouari, Atiq Ur Rahman, Halima Bensmail,
+KNNOR: An oversampling technique for imbalanced datasets,
+Applied Soft Computing,
+2021,
+108288,
+ISSN 1568-4946,
+https://doi.org/10.1016/j.asoc.2021.108288.
+
+(https://www.sciencedirect.com/science/article/pii/S1568494621010942)
+
+
 
 License
 -------
