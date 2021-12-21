@@ -81,7 +81,7 @@ X being the feataures and y being the class labels
 
   knnor = data_augment.KNNOR()
   knnor=KNNOR()
-  X_new,y_new=knnor.fit_resample(X,y)
+  X_new,y_new,_,_=knnor.fit_resample(X,y)
   y_new=y_new.reshape(-1,1)
 
   print("KNNOR Data:")
@@ -147,6 +147,7 @@ Input Parameters
 Above example leverages the default parameters of the KNNOR algorithm. Following parameters can be used to tweak the functioning of the algorithm
 
 .. code-block:: python
+
   X_new,y_new,_,_=knnor.fit_resample(X,y,
                               num_neighbors=10, # the number of neighbors that will be used for generation of each artificial point
                               max_dist_point=0.01, # the maximum distance at which the new point will be placed
@@ -171,6 +172,9 @@ Outputs
 
 - y: Labels including the augmented ones
 
+- X_new: Just the augmented minority points
+
+- y_new: Labels for only augmented minority points
 
 .. Contribute
 .. ----------
