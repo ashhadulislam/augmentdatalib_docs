@@ -147,7 +147,7 @@ Input Parameters
 Above example leverages the default parameters of the KNNOR algorithm. Following parameters can be used to tweak the functioning of the algorithm
 
 .. code-block:: python
-  X_new,y_new=knnor.fit_resample(X,y,
+  X_new,y_new,_,_=knnor.fit_resample(X,y,
                               num_neighbors=10, # the number of neighbors that will be used for generation of each artificial point
                               max_dist_point=0.01, # the maximum distance at which the new point will be placed
                               proportion_minority=0.3, # proportion of the minority population that will be used to generate the artificial point
