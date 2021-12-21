@@ -48,7 +48,7 @@ X being the feataures and y being the class labels
 
   import numpy as np
   from knnor import data_augment
-  l=[
+  l = [
 
     [1.0,2.0,1.0,0],
     [1,3,1,0],
@@ -73,19 +73,19 @@ X being the feataures and y being the class labels
     [4,3,1,1]
   ]
 
-  l=np.array(l)
+  l = np.array(l)
   print("Original Data:")
   print(l)
-  X=l[:,:-1]
+  X = l[:,:-1]
   y=l[:,-1]
 
   knnor = data_augment.KNNOR()
-  knnor=KNNOR()
-  X_new,y_new,_,_=knnor.fit_resample(X,y)
-  y_new=y_new.reshape(-1,1)
+  knnor = KNNOR()
+  X_new, y_new, X_aug_min, y_aug_min = knnor.fit_resample(X,y)
+  y_new = y_new.reshape(-1,1)
 
   print("KNNOR Data:")
-  new_data=np.append(X_new, y_new, axis=1)
+  new_data = np.append(X_new, y_new, axis=1)
   print(new_data)
 
 
@@ -148,7 +148,7 @@ Above example leverages the default parameters of the KNNOR algorithm. Following
 
 .. code-block:: python
 
-  X_new,y_new,_,_=knnor.fit_resample(X,y,
+  X_new, y_new, X_aug_min, y_aug_min = knnor.fit_resample(X, y,
                               num_neighbors=10, # the number of neighbors that will be used for generation of each artificial point
                               max_dist_point=0.01, # the maximum distance at which the new point will be placed
                               proportion_minority=0.3, # proportion of the minority population that will be used to generate the artificial point
@@ -168,13 +168,13 @@ Above example leverages the default parameters of the KNNOR algorithm. Following
 
 Outputs
 -------
-- X: complete data with augmented datapoints
+- X_new: complete data with augmented datapoints
 
-- y: Labels including the augmented ones
+- y_new: Labels including the augmented ones
 
-- X_new: Just the augmented minority points
+- X_aug_min: Just the augmented minority points
 
-- y_new: Labels for only augmented minority points
+- y_aug_min: Labels for only augmented minority points
 
 .. Contribute
 .. ----------
