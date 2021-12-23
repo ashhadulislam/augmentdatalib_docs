@@ -80,7 +80,6 @@ X being the feataures and y being the class labels
   y=l[:,-1]
 
   knnor = data_augment.KNNOR()
-  knnor = KNNOR()
   X_new, y_new, X_aug_min, y_aug_min = knnor.fit_resample(X,y)
   y_new = y_new.reshape(-1,1)
 
